@@ -1,0 +1,10 @@
+boto3
+flask
+moviepy 
+google-cloud-speech
+pydub
+Speechrecognition
+librosa
+googletrans
+translate
+

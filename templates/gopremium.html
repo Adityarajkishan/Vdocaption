@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Video Upload and Processing</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i&amp;display=swap">
+    <link rel="stylesheet" href="../static/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="../static/css/baguetteBox.min.css">
+    <link rel="stylesheet" href="../static/css/vanilla-zoom.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top bg-body clean-navbar navbar-light">
+        <div class="container">
+            <img src="../static/img/vide%20caption%20logo.png" style="width: auto; height: 40px;">
+            <a class="navbar-brand logo" href="#">Vdotocaption</a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
+                <span class="visually-hidden">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+        <main class="page landing-page">
+            <section class="clean-block clean-hero" style="background-image: url('../static/img/tech/image4.jpg'); color: rgba(80, 160, 209, 0.5);">
+                <div class="text">
+                    <h2>Upload your video(s) here to generate captions</h2>
+                    <!-- Input for Video File -->
+                    <form action="/upload" method="POST" enctype="multipart/form-data">
+                        <input type="file" accept="video/mp4" name="file" required>
+                        <input type="hidden" name="value" value="premium">
+                        <button class="btn btn-primary" type="submit">Upload Video (MP4)</button>
+                    </form>
+                    <hr>
+                    <h2>{{ results }}</h2>
+                    
+                    <div class="container mt-5">
+                        <h3>Select a Language</h3>
+                        <form action="/premium" method="POST" id="language-form">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="language-select">Language</label>
+                                </div>
+                                <select class="custom-select" id="language-select" name="language">
+                                    <option selected value='none'>Select Language...</option>
+                                    <option value="bn">Bengali</option>
+                                    <option value="hi">Hindi</option>
+                                    <option value="ta">Tamil</option>
+                                    <option value="te">Telugu</option>
+                                    <option value="ur">Urdu</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Generate Transcriptions</button>
+                        </form>
+                    </div>
+                    
+                    <h2>{{results1}}</h2>
+                    
+                    <button id="toggleButton" style="padding: 5px 10px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">View Results</button>
+                    
+                <div id="result" style="border: 1px solid #ccc; padding: 10px; margin: 20px; background-color: #f9f9f9; color: black;display: none;">
+                    {{results2}}
+                </div>
+                
+                <div style="display: flex; justify-content: space-between;">
+                    <form action="/download" method="POST">
+                        <button class="btn btn-outline-light btn-lg" type="submit" name="batch-action" value="Single" style="padding-left: 8px; padding-right: 8px; padding-bottom: 4px; padding-top: 4px; margin: 10px;background-color: rgba(80, 160, 209, 0.5);"><strong>Download</strong></button>
+                    </form>
+                    
+                    <form action="/downloadjson" method="POST">
+                        <button class="btn btn-outline-light btn-lg" type="submit" name="batch-action" value="Single" style="padding-left: 8px; padding-right: 8px; padding-bottom: 4px; padding-top: 4px; margin: 10px;background-color: rgba(80, 160, 209, 0.5);"><strong>Download JSON</strong></button>
+                    </form>
+                </div>
+
+                </div>
+            </section>    
+        </main>
+    <footer class="page-footer dark"></footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/baguetteBox.min.js"></script>
+    <script src="../static/js/vanilla-zoom.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <script>
+        // JavaScript to toggle the visibility of the result field
+        const toggleButton = document.getElementById('toggleButton');
+        const result = document.getElementById('result');
+
+        toggleButton.addEventListener('click', () => {
+            if (result.style.display === 'none' || result.style.display === '') {
+                result.style.display = 'block';
+                toggleButton.textContent = 'Hide Results';
+            } else {
+                result.style.display = 'none';
+                toggleButton.textContent = 'View Results';
+            }
+        });
+    </script>
+</body>
+
+</html>

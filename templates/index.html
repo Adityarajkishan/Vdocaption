@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose the Processing</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i&amp;display=swap">
+    <link rel="stylesheet" href="../static/css/baguetteBox.min.css">
+    <link rel="stylesheet" href="../static/css/vanilla-zoom.min.css">
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/css/css.css'>
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top bg-body clean-navbar navbar-light">
+        <div class="container">
+            <img src="../static/img/vide%20caption%20logo.png" style="width: auto; height: 40px;">
+            <a class="navbar-brand logo" href="#">Vdotocaption</a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
+                <span class="visually-hidden">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="page landing-page">  
+            <div class="page-content">
+                <div class='wrapper'>
+                    <div class='package'>
+                    <div class='name'>Standard</div>
+                    <div class='trial'>Using Custom Model</div>
+                    <hr>
+                    <ul>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">✅</span>
+                            <strong>Accurate</strong> Transcriptions
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">❗</span>
+                            <strong>1</strong> File at a time
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">❗</span>
+                            <strong>Weaker</strong> Time stamps
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">❗</span>
+                            <strong>No</strong> Translations
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">❗</span>
+                            <strong>No</strong> Extra informations
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">✅</span>
+                            <strong>Searchable & Downloadable</strong> captions
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary" type="submit" name="action" value="Standard"><a class="nav-link" href="{{ url_for('gostandard') }}">Standard</a></button>
+                    
+                    </div>
+
+                    <div class='package'>
+                    <div class='name'>Premium</div>
+                    <div class='trial'>Using AWS Functions</div>
+                    <hr>
+                    <ul>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">✅</span>
+                            <strong>Accurate</strong> Transcriptions
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">✅</span>
+                            <strong>Multiple</strong> Batch Processing
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">✅</span>
+                            <strong>Stronger</strong> Accurate time stamps
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">✅</span>
+                            <strong>7</strong> Different Translations
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">✅</span>
+                            <strong>Additional info</strong> on speakers and confidence
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <span style="font-size: 1.3rem; color: #33c4b6; margin-right: 3px; font-family: 'FontAwesome';">✅</span>
+                            <strong>Searchable & Downloadable</strong> captions
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary" type="submit" name="action" value="Standard"><a class="nav-link" href="{{ url_for('gopremium') }}">Premium</a></button>
+                    
+                    </div>
+                </div>
+            </div> 
+        </section>
+    </main>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/baguetteBox.min.js"></script>
+    <script src="../static/js/vanilla-zoom.js"></script>
+    <script src="../static/js/theme.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,84 @@
+image: python:3.8
+pipelines:
+  default:
+    - step:
+        name: Build and Test
+        script:
+          - pip install -r requirements.txt
+
+    - step:
+        name: Security Scan
+        trigger: manual
+        script:
+          - pipe: atlassian/git-secrets-scan:0.5.1
+
+    - step:
+        name: Install Utilities
+        trigger: manual
+        script:
+          # Use 'apt-get' instead of 'sudo apt-get' in Bitbucket Pipelines
+          - apt-get update  
+          - apt-get install -y jq unzip 
+
+    # - step:
+    #     name: Build and Push Docker Image
+    #     trigger: manual
+    #     script:
+    #       - docker build -t my-docker-image .
+
+    #       # use the pipe to push the image to AWS ECR
+
+    #       - pipe: atlassian/aws-ecr-push-image:2.2.0
+    #         variables:
+    #           AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+    #           AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+    #           AWS_DEFAULT_REGION: $AWS_REGION
+    #           IMAGE_NAME: vdotocaption
+    #           TAGS: latest
+
+          # - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+          # - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+          # - export AWS_DEFAULT_REGION=$AWS_REGION
+          # - export ECR_REGISTRY=$AWS_ECR_REGISTRY
+          # - export ECR_REPOSITORY=$ECR_REPOSITORY_NAME
+          # - export IMAGE_TAG=latest
+
+          # - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          # - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          # - aws configure set region $AWS_REGION
+
+          # - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+
+          # - docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          # - docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    - step:
+        name: Continuous Deployment
+        trigger: manual
+        script:
+
+          - pipe: atlassian/aws-s3-deploy:1.4.0
+            variables:
+              S3_BUCKET: 'storevdos'
+              LOCAL_PATH: '${BITBUCKET_CLONE_DIR}/'
+
+          - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+            variables:
+              DISTRIBUTION_ID: 'E2K09BPE0EKVUP'
+
+          # - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+          # - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+          # - export AWS_DEFAULT_REGION=$AWS_REGION
+          # - export ECR_REGISTRY=$AWS_ECR_REGISTRY
+          # - export ECR_REPOSITORY=$ECR_REPOSITORY_NAME
+          # - export IMAGE_TAG=latest
+
+          # - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          # - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          # - aws configure set region $AWS_REGION
+
+          # - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+
+          # - docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          # - docker run -d -p 8080:8080 --ipc="host" --name vdotocaption -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_REGION=$AWS_REGION $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          # - docker system prune -f
